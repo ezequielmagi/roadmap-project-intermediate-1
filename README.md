@@ -17,4 +17,7 @@ This project is a simple **custom dropdown menu** created using HTML, CSS, and J
 - **JavaScript**: Dynamic creation of dropdown items and event handling for user interaction.
 
 PROJECT URL:
+https://roadmap.sh/projects/custom-dropdown
+
+DEPLOY
 https://roadmap-project-intermediate-1.vercel.app/
