@@ -3,17 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Landing Page</title>
+    <title>Lista Desplegable Dinámica</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             text-align: center;
             margin-top: 50px;
         }
-        select {
+        .dropdown {
+            position: relative;
+            display: inline-block;
+            width: 220px;
+        }
+        .dropdown-toggle {
             padding: 10px;
             font-size: 16px;
-            margin-top: 20px;
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: white;
+            cursor: pointer;
+            text-align: left;
+        }
+        .dropdown-toggle::after {
+            content: '▼';
+            float: right;
+        }
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: white;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            z-index: 1;
+        }
+        .dropdown-menu.show {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            text-align: left;
+        }
+        .dropdown-item {
+            padding: 10px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+        }
+        .dropdown-item:hover {
+            background-color: #f1f1f1;
+        }
+        .checked::after {
+            content: '✔ ';
+            color: green;
+            margin-left: 5px;
         }
     </style>
 </head>
@@ -21,13 +65,61 @@
     <h1>Bienvenido a Nuestra Landing Page</h1>
     <p>Selecciona una opción del menú desplegable:</p>
     
-    <select>
-        <option value="" disabled selected>Selecciona una opción</option>
-        <option value="first">First Item</option>
-        <option value="second">Second Item</option>
-        <option value="third">Third Item</option>
-        <option value="fourth">Fourth Item</option>
-        <option value="fifth">Fifth Item</option>
-    </select>
+    <div class="dropdown">
+        <div class="dropdown-toggle">Selecciona una opción</div>
+        <div class="dropdown-menu"></div>
+    </div>
+
+    <script>
+        // Array de opciones
+        const options = [
+            { value: 'first', label: 'First Item' },
+            { value: 'second', label: 'Second Item' },
+            { value: 'third', label: 'Third Item' },
+            { value: 'fourth', label: 'Fourth Item' },
+            { value: 'fifth', label: 'Fifth Item' }
+        ];
+
+        const dropdownMenu = document.querySelector('.dropdown-menu');
+        const toggle = document.querySelector('.dropdown-toggle');
+
+        // Crear opciones dinámicamente
+        options.forEach(option => {
+            const item = document.createElement('div');
+            item.className = 'dropdown-item';
+            item.textContent = option.label;
+            item.dataset.value = option.value;
+
+            // Agregar evento de clic a cada item
+            item.addEventListener('click', () => {
+                // Remover clase 'checked' de todos los ítems
+                document.querySelectorAll('.dropdown-item').forEach(i => i.classList.remove('checked'));
+
+                // Agregar clase 'checked' al ítem seleccionado
+                item.classList.add('checked');
+
+                // Actualizar el texto del toggle
+                toggle.textContent = option.label;
+
+                // Cerrar el menú
+                dropdownMenu.classList.remove('show');
+            });
+
+            // Agregar el ítem al menú
+            dropdownMenu.appendChild(item);
+        });
+
+        // Mostrar/ocultar menú al hacer clic en el toggle
+        toggle.addEventListener('click', () => {
+            dropdownMenu.classList.toggle('show');
+        });
+
+        // Cerrar el menú si se hace clic fuera de él
+        document.addEventListener('click', (event) => {
+            if (!dropdownMenu.contains(event.target) && !toggle.contains(event.target)) {
+                dropdownMenu.classList.remove('show');
+            }
+        });
+    </script>
 </body>
 </html>
