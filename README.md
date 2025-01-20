@@ -16,12 +16,5 @@ This project is a simple **custom dropdown menu** created using HTML, CSS, and J
 - **CSS3**: Styling for the dropdown menu, items, and selected state.
 - **JavaScript**: Dynamic creation of dropdown items and event handling for user interaction.
 
-## Code Breakdown
-
-### HTML Structure
-
-```html
-<div class="dropdown">
-    <div class="dropdown-toggle">Selecciona una opción</div>
-    <div class="dropdown-menu"></div>
-</div>
+LINK TO THE DEPLOY:
+https://roadmap-project-intermediate-1.vercel.app/
